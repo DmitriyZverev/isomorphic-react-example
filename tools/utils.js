@@ -1,3 +1,5 @@
+import path from 'path';
+import fs from 'fs-extra';
 import Application from 'koa';
 import mount from 'koa-mount';
 import webpack from 'webpack';
@@ -79,6 +81,24 @@ export function runServer(getApplication, middlewares = []) {
   });
   middlewares.forEach(middleware => server.use(middleware));
   server.use(async (ctx, next) => mount(await getApplication())(ctx, next));
-  server.listen(PORT);
+  server.listen(PORT, () => {
+    print(`Server is listening port ${PORT}.`);
+  });
   return server;
+}
+
+export async function clear(dir) {
+  print(`Cleaning directory ${dir} started...`);
+  try {
+    await fs.access(dir);
+    try {
+      const files = await fs.readdir(dir);
+      await Promise.all(files.map(file => fs.remove(path.join(dir, file))));
+      print(`Cleaning directory ${dir} completed...`);
+    } catch (err) {
+      print('error', err.stack);
+    }
+  } catch (err) {
+    // ...
+  }
 }

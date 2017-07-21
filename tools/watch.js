@@ -1,8 +1,8 @@
 import webpack from 'webpack';
 import {devMiddleware, hotMiddleware} from 'koa-webpack-middleware';
 
-import {ASSETS_PATH, SERVER_PATH} from '../config';
-import {Compilers, runServer, print} from './utils';
+import {ASSETS_PATH, SERVER_PATH, BUILD_DIR} from '../config';
+import {Compilers, runServer, print, clear} from './utils';
 import webpackConfig from './webpack';
 
 const hotPlugins = [
@@ -91,6 +91,7 @@ class AppFactory {
 }
 
 async function watch() {
+  await clear(BUILD_DIR);
   const compilers = new Compilers(webpackConfig, extend);
   const factory = new AppFactory();
   factory.synchronize(compilers);

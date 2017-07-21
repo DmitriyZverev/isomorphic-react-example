@@ -1,7 +1,7 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-import {DEV} from '../config';
-import {Compilers, print} from './utils';
+import {DEV, BUILD_DIR} from '../config';
+import {Compilers, print, clear} from './utils';
 import webpackConfig from './webpack';
 
 const expand = {
@@ -17,14 +17,15 @@ const expand = {
   },
 };
 
-function build(cb) {
+async function build() {
+  await clear(BUILD_DIR);
   const compilers = new Compilers(webpackConfig, expand);
-  compilers.get('client').run(() => compilers.get('server').run(() => {
-    print('success', 'Application is built.');
-    if (cb) {
-      cb();
-    }
-  }));
+  await new Promise((resolve) => {
+    compilers.get('client').run(() => compilers.get('server').run(() => {
+      print('success', 'Application is built.');
+      resolve();
+    }));
+  });
 }
 
 export default build;

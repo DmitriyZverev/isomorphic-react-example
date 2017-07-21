@@ -24,21 +24,20 @@ export default async function ({runBuild, serveStatic}) {
     middlewares.push(mount(PUBLIC_URL, serve(PUBLIC_DIR)));
   }
   if (runBuild) {
-    build(() => run(middlewares));
-  } else {
-    try {
-      await Promise.all([
-        fs.access(SERVER_PATH),
-        fs.access(ASSETS_PATH),
-      ]);
-      run(middlewares);
-    } catch (err) {
-      print('error', [
-        '\nCan\'t run server! Server build is not ready:\n',
-        err.stack,
-        '\nYou should run this command with flag "--build", '
-        + 'or before run "yarn build".',
-      ]);
-    }
+    await build();
+  }
+  try {
+    await Promise.all([
+      fs.access(SERVER_PATH),
+      fs.access(ASSETS_PATH),
+    ]);
+    run(middlewares);
+  } catch (err) {
+    print('error', [
+      '\nCan\'t run server! Server build is not ready:\n',
+      err.stack,
+      '\nYou should run this command with flag "--build", '
+      + 'or before run "yarn build".',
+    ]);
   }
 }

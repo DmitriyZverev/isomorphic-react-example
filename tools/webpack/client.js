@@ -12,7 +12,38 @@ import {
   FILE_NAME_PATTERN,
   NODE_ENV,
   DEV,
+  PROD,
 } from '../../config';
+
+const plugins = [
+  new webpack.DefinePlugin({
+    'process.env': {NODE_ENV: JSON.stringify(NODE_ENV)},
+  }),
+  new AssetsPlugin({
+    path: path.parse(ASSETS_PATH).dir,
+    filename: path.parse(ASSETS_PATH).base,
+    prettyPrint: true,
+  }),
+];
+
+if (PROD) {
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        screw_ie8: true, // eslint-disable-line camelcase
+        unused: true,
+        dead_code: true, // eslint-disable-line camelcase
+      },
+      mangle: {
+        screw_ie8: true, // eslint-disable-line camelcase
+      },
+      output: {
+        comments: false,
+        screw_ie8: true, // eslint-disable-line camelcase
+      },
+    })
+  );
+}
 
 export default {
   name: 'client',
@@ -88,14 +119,5 @@ export default {
       },
     ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify(NODE_ENV)},
-    }),
-    new AssetsPlugin({
-      path: path.parse(ASSETS_PATH).dir,
-      filename: path.parse(ASSETS_PATH).base,
-      prettyPrint: true,
-    }),
-  ],
+  plugins,
 };

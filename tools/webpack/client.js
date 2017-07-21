@@ -1,4 +1,5 @@
 import path from 'path';
+import webpack from 'webpack';
 import AssetsPlugin from 'assets-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 
@@ -9,6 +10,7 @@ import {
   ASSETS_PATH,
   CSS_NAME_PATTERN,
   FILE_NAME_PATTERN,
+  NODE_ENV,
   DEV,
 } from '../../config';
 
@@ -87,6 +89,9 @@ export default {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {NODE_ENV: JSON.stringify(NODE_ENV)},
+    }),
     new AssetsPlugin({
       path: path.parse(ASSETS_PATH).dir,
       filename: path.parse(ASSETS_PATH).base,

@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs-extra';
 import mount from 'koa-mount';
 import serve from 'koa-static';
 
@@ -10,17 +10,6 @@ import {
 } from '../config';
 import {runServer, print} from './utils';
 import build from './build';
-
-function fileAccess(path, mode) {
-  return new Promise((resolve, reject) => {
-    fs.access(path, mode, (err) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve();
-    });
-  });
-}
 
 function run(middlewares) {
   runServer(
@@ -39,8 +28,8 @@ export default async function ({runBuild, serveStatic}) {
   } else {
     try {
       await Promise.all([
-        fileAccess(SERVER_PATH),
-        fileAccess(ASSETS_PATH),
+        fs.access(SERVER_PATH),
+        fs.access(ASSETS_PATH),
       ]);
       run(middlewares);
     } catch (err) {

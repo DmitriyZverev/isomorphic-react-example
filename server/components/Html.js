@@ -13,6 +13,7 @@ function Html({assets, children}) {
           id="root"
           dangerouslySetInnerHTML={{__html: renderToString(children)}}
         />
+        <script src={assets.vendor.js}/>
         <script src={assets.client.js}/>
       </body>
     </html>

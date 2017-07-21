@@ -48,6 +48,7 @@ if (PROD) {
 export default {
   name: 'client',
   target: 'web',
+  devtool: DEV ? 'inline-source-map' : false,
   entry: {
     client: [
       'babel-polyfill',

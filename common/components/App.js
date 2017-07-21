@@ -1,8 +1,10 @@
 import React from 'react';
 
+import styles from './App.css';
+
 function App() {
   return (
-    <h1>Hello, world!</h1>
+    <h1 className={styles.title}>Hello, world!</h1>
   );
 }
 

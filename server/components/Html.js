@@ -5,7 +5,9 @@ import {renderToString} from 'react-dom/server';
 function Html({assets, children}) {
   return (
     <html>
-      <head/>
+      <head>
+        <link rel="stylesheet" href={assets.client.css}/>
+      </head>
       <body>
         <div
           id="root"

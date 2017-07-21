@@ -1,11 +1,14 @@
 import path from 'path';
 import AssetsPlugin from 'assets-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 import {
   ROOT_DIR,
   PUBLIC_URL,
   PUBLIC_DIR,
   ASSETS_PATH,
+  CSS_NAME_PATTERN,
+  DEV,
 } from '../../config';
 
 export default {
@@ -38,6 +41,32 @@ export default {
                 'stage-0',
               ],
               plugins: [],
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: CSS_NAME_PATTERN,
+              minimize: !DEV,
+              sourceMap: DEV,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: DEV,
+              plugins: () => [
+                autoprefixer,
+              ],
             },
           },
         ],

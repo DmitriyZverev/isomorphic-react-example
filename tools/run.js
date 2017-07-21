@@ -1,17 +1,35 @@
+import fs from 'fs';
 import mount from 'koa-mount';
 import serve from 'koa-static';
 
-import {PUBLIC_URL, PUBLIC_DIR} from '../config';
-import {runServer} from './utils';
+import {
+  PUBLIC_URL,
+  PUBLIC_DIR,
+  SERVER_PATH,
+  ASSETS_PATH,
+} from '../config';
+import {runServer, print} from './utils';
 import build from './build';
 
-function run(middlewares) {
-  const assets = require('../build/assets.json');
-  const app = require('../build/server.js').default(assets);
-  runServer(() => Promise.resolve(app), middlewares);
+function fileAccess(path, mode) {
+  return new Promise((resolve, reject) => {
+    fs.access(path, mode, (err) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve();
+    });
+  });
 }
 
-export default function ({runBuild, serveStatic}) {
+function run(middlewares) {
+  runServer(
+    () => Promise.resolve(require(SERVER_PATH).default(require(ASSETS_PATH))),
+    middlewares
+  );
+}
+
+export default async function ({runBuild, serveStatic}) {
   const middlewares = [];
   if (serveStatic) {
     middlewares.push(mount(PUBLIC_URL, serve(PUBLIC_DIR)));
@@ -19,6 +37,19 @@ export default function ({runBuild, serveStatic}) {
   if (runBuild) {
     build(() => run(middlewares));
   } else {
-    run(middlewares);
+    try {
+      await Promise.all([
+        fileAccess(SERVER_PATH),
+        fileAccess(ASSETS_PATH),
+      ]);
+      run(middlewares);
+    } catch (err) {
+      print('error', [
+        '\nCan\'t run server! Server build is not ready:\n',
+        err.stack,
+        '\nYou should run this command with flag "--build", '
+        + 'or before run "yarn build".',
+      ]);
+    }
   }
 }

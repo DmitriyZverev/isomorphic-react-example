@@ -7,7 +7,7 @@ import webpackConfig from './webpack';
 const expand = {
   client(config) {
     const stylesRule = config.module.rules.find((rule) => {
-      return rule.test.toString() === '/\\.css$/';
+      return rule.test.toString() === '/\\.(css|styl)$/';
     });
     stylesRule.use = ExtractTextPlugin.extract({use: stylesRule.use.slice(1)});
     config.plugins.push(new ExtractTextPlugin(

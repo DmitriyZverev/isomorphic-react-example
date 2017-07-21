@@ -29,6 +29,8 @@
     "react-dom": "^15.6.1",
     "source-map-support": "^0.4.15",
     "style-loader": "^0.18.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
     "webpack": "^3.3.0",
     "webpack-node-externals": "^1.6.0"
   },

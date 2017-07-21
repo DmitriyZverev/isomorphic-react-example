@@ -8,6 +8,7 @@ import {
   PUBLIC_URL,
   PUBLIC_DIR,
   ASSETS_PATH,
+  STYLUS_CONFIG_PATH,
   CSS_NAME_PATTERN,
   FILE_NAME_PATTERN,
   NODE_ENV,
@@ -81,7 +82,7 @@ export default {
         ],
       },
       {
-        test: /\.css$/,
+        test: /\.(css|styl)$/,
         use: [
           {
             loader: 'style-loader',
@@ -92,6 +93,7 @@ export default {
               modules: true,
               localIdentName: CSS_NAME_PATTERN,
               minimize: !DEV,
+              importLoaders: 1,
               sourceMap: DEV,
             },
           },
@@ -101,6 +103,14 @@ export default {
               sourceMap: DEV,
               plugins: () => [
                 autoprefixer,
+              ],
+            },
+          },
+          {
+            loader: 'stylus-loader',
+            options: {
+              import: [
+                STYLUS_CONFIG_PATH,
               ],
             },
           },

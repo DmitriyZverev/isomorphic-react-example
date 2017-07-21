@@ -1,4 +1,5 @@
 import path from 'path';
+import stylus from 'stylus';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
@@ -6,6 +7,7 @@ import * as pkg from '../../package.json';
 import {
   ROOT_DIR,
   SERVER_PATH,
+  STYLUS_CONFIG_PATH,
   PUBLIC_URL,
   CSS_NAME_PATTERN,
   FILE_NAME_PATTERN,
@@ -50,8 +52,14 @@ export default {
                   {
                     devMode: DEV,
                     generateScopedName: CSS_NAME_PATTERN,
+                    preprocessCss(css, file) {
+                      const stylusCss = stylus(css);
+                      stylusCss.import(STYLUS_CONFIG_PATH);
+                      return stylusCss.set('filename', file).render();
+                    },
                     extensions: [
                       '.css',
+                      '.styl',
                     ],
                   },
                 ],

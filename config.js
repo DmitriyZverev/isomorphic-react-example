@@ -10,6 +10,7 @@ export const PUBLIC_DIR = path.join(BUILD_DIR, 'public');
 
 export const SERVER_PATH = path.join(BUILD_DIR, 'server.js');
 export const ASSETS_PATH = path.join(BUILD_DIR, 'assets.json');
+export const STYLUS_CONFIG_PATH = path.join(ROOT_DIR, 'common', 'config.styl');
 
 export const PUBLIC_URL = '/public/';
 

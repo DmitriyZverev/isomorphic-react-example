@@ -1,4 +1,5 @@
 import path from 'path';
+import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
 import * as pkg from '../../package.json';
@@ -14,6 +15,7 @@ import {
 export default {
   name: 'server',
   target: 'node',
+  devtool: 'source-map',
   entry: {
     server: path.join(ROOT_DIR, 'server', 'server.js'),
   },
@@ -72,5 +74,11 @@ export default {
       },
     ],
   },
-  plugins: [],
+  plugins: [
+    new webpack.BannerPlugin({
+      banner: 'require("source-map-support").install();',
+      raw: true,
+      entryOnly: false,
+    }),
+  ],
 };

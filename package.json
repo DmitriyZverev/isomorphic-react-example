@@ -30,6 +30,7 @@
     "eslint-config-revva": "^0.5.0",
     "eslint-plugin-react": "^7.1.0",
     "koa-mount": "^3.0.0",
+    "koa-static": "^4.0.1",
     "koa-webpack-middleware": "^1.0.5",
     "react-hot-loader": "next"
   },

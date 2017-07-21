@@ -8,6 +8,7 @@ import {
   PUBLIC_DIR,
   ASSETS_PATH,
   CSS_NAME_PATTERN,
+  FILE_NAME_PATTERN,
   DEV,
 } from '../../config';
 
@@ -67,6 +68,18 @@ export default {
               plugins: () => [
                 autoprefixer,
               ],
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|jpeg|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: FILE_NAME_PATTERN,
+              publicPath: PUBLIC_URL,
             },
           },
         ],

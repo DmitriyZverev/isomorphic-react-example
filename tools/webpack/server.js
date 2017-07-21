@@ -5,7 +5,9 @@ import * as pkg from '../../package.json';
 import {
   ROOT_DIR,
   SERVER_PATH,
+  PUBLIC_URL,
   CSS_NAME_PATTERN,
+  FILE_NAME_PATTERN,
   DEV,
 } from '../../config';
 
@@ -51,6 +53,19 @@ export default {
                   },
                 ],
               ],
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|jpeg|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              emitFile: false,
+              name: FILE_NAME_PATTERN,
+              publicPath: PUBLIC_URL,
             },
           },
         ],

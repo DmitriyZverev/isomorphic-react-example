@@ -16,5 +16,8 @@ export const PUBLIC_URL = '/public/';
 export const CSS_NAME_PATTERN = DEV
   ? '[name]__[local]__[hash:base64:4]'
   : '[hash:base64:8]';
+export const FILE_NAME_PATTERN = DEV
+  ? '[name]__[hash:base64:4].[ext]'
+  : '[hash:base64:8].[ext]';
 
 export const PORT = 8000;

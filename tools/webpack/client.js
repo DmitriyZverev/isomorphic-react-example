@@ -65,6 +65,12 @@ export default {
     publicPath: PUBLIC_URL,
     filename: '[name].[hash].js',
   },
+  resolve: {
+    modules: [
+      'common',
+      'node_modules',
+    ],
+  },
   stats: 'errors-only',
   module: {
     rules: [

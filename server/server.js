@@ -3,7 +3,7 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import Application from 'koa';
 
 import Html from './components/Html';
-import App from '../common/components/App';
+import App from 'components/App';
 
 export default function (assets) {
   const app = new Application();
@@ -16,7 +16,7 @@ export default function (assets) {
 
   if (module.hot) {
     app.hot = module.hot;
-    module.hot.accept('../common/components/App');
+    module.hot.accept('components/App');
   }
   return app;
 }

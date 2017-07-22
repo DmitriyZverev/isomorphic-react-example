@@ -27,6 +27,12 @@ export default {
     filename: path.parse(SERVER_PATH).base,
     libraryTarget: 'commonjs2',
   },
+  resolve: {
+    modules: [
+      'common',
+      'node_modules',
+    ],
+  },
   externals: [
     nodeExternals({
       whitelist: [

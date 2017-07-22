@@ -91,14 +91,14 @@ export async function clean(dirs) {
   if (typeof dirs === 'string') {
     dirs = [dirs];
   }
+  const cleanedDirs = [];
   await Promise.all(dirs.map(async (dir) => {
     try {
       await fs.access(dir);
       try {
         const files = await fs.readdir(dir);
         await Promise.all(files.map(file => fs.remove(path.join(dir, file))));
-        const relativePath = path.relative(process.cwd(), dir);
-        print(`"./${relativePath}" directory has been cleaned up.`);
+        cleanedDirs.push(dir);
       } catch (err) {
         print('error', err.stack);
       }
@@ -106,4 +106,6 @@ export async function clean(dirs) {
       // ...
     }
   }));
+  print('Directories have been cleaned up:');
+  print(cleanedDirs.map(dir => `- ./${path.relative(process.cwd(), dir)}`));
 }

@@ -61,7 +61,7 @@ class AppFactory {
       compiler.plugin('compile', () => this.ready(compiler.name, false));
       compiler.plugin('done', (stats) => {
         if (stats.hasErrors()) {
-          this._reject(new Error('Server compilation failed!'));
+          this._reject(new Error('Server bundle compilation failed.'));
           this._promise.done = true;
         } else {
           this.ready(compiler.name, true);
@@ -93,7 +93,7 @@ class AppFactory {
       [SERVER_PATH, ASSETS_PATH].forEach(path => delete require.cache[path]);
       this._resolve(require(SERVER_PATH).default(require(ASSETS_PATH)));
       this._promise.done = true;
-      print('success', 'Application is ready.');
+      print('success', 'Application has been built and ready for usage.');
     }
   }
 }

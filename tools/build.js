@@ -22,7 +22,7 @@ async function build() {
   const compilers = new Compilers(webpackConfig, expand);
   await new Promise((resolve) => {
     compilers.get('client').run(() => compilers.get('server').run(() => {
-      print('success', 'Application is built.');
+      print('success', 'Application has been built and ready for usage.');
       resolve();
     }));
   });

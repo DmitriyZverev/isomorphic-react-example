@@ -22,7 +22,7 @@ export function print(type, messages) {
     messages = [messages];
   }
   messages.forEach(message => message.split('\n').forEach((line) => {
-    console.log(`\x1b[90m[tools]\x1b[0m \x1b[${map[type]}m${line}\x1b[0m`);
+    console.log(`\x1b[90m[tools]:\x1b[0m \x1b[${map[type]}m${line}\x1b[0m`);
   }));
 }
 
@@ -40,16 +40,16 @@ export class Compilers {
       const name = compiler.name.charAt(0).toUpperCase()
                  + compiler.name.slice(1);
       compiler.plugin('compile', () => {
-        print(`${name} compilation started...`);
+        print(`${name} bundle is compiling...`);
       });
       compiler.plugin('done', (stats) => {
         if (stats.hasErrors()) {
           print('error', [
-            `\n${name} compilation failed:`,
+            `\n${name} bundle compilation failed:`,
             stats.toString('errors-only'),
           ]);
         } else {
-          print(`${name} compilation completed.`);
+          print(`${name} bundle compilation has been completed.`);
         }
       });
     });

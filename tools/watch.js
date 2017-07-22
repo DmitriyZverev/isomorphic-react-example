@@ -1,7 +1,14 @@
 import webpack from 'webpack';
+import mount from 'koa-mount';
+import serve from 'koa-static';
 import {devMiddleware, hotMiddleware} from 'koa-webpack-middleware';
 
-import {ASSETS_PATH, SERVER_PATH, BUILD_DIR} from '../config';
+import {
+  ASSETS_PATH,
+  SERVER_PATH,
+  BUILD_DIR,
+  PUBLIC_ROOT_DIR,
+} from '../config';
 import {Compilers, runServer, print, clear} from './utils';
 import webpackConfig from './webpack';
 
@@ -97,6 +104,7 @@ async function watch() {
   factory.synchronize(compilers);
   compilers.get('server').watch({}, () => {});
   runServer(factory.get, [
+    mount('/', serve(PUBLIC_ROOT_DIR)),
     devMiddleware(compilers.get('client'), {
       noInfo: true,
       stats: false,

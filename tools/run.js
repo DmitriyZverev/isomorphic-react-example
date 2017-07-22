@@ -4,6 +4,7 @@ import serve from 'koa-static';
 
 import {
   PUBLIC_URL,
+  PUBLIC_ROOT_DIR,
   PUBLIC_DIR,
   SERVER_PATH,
   ASSETS_PATH,
@@ -21,7 +22,10 @@ function run(middlewares) {
 export default async function ({runBuild, serveStatic}) {
   const middlewares = [];
   if (serveStatic) {
-    middlewares.push(mount(PUBLIC_URL, serve(PUBLIC_DIR)));
+    middlewares.push(
+      mount('/', serve(PUBLIC_ROOT_DIR)),
+      mount(PUBLIC_URL, serve(PUBLIC_DIR))
+    );
   }
   if (runBuild) {
     await build();

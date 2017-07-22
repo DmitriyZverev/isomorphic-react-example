@@ -87,18 +87,23 @@ export function runServer(getApplication, middlewares = []) {
   return server;
 }
 
-export async function clear(dir) {
-  print(`Cleaning directory ${dir} started...`);
-  try {
-    await fs.access(dir);
-    try {
-      const files = await fs.readdir(dir);
-      await Promise.all(files.map(file => fs.remove(path.join(dir, file))));
-      print(`Cleaning directory ${dir} completed...`);
-    } catch (err) {
-      print('error', err.stack);
-    }
-  } catch (err) {
-    // ...
+export async function clean(dirs) {
+  if (typeof dirs === 'string') {
+    dirs = [dirs];
   }
+  await Promise.all(dirs.map(async (dir) => {
+    try {
+      await fs.access(dir);
+      try {
+        const files = await fs.readdir(dir);
+        await Promise.all(files.map(file => fs.remove(path.join(dir, file))));
+        const relativePath = path.relative(process.cwd(), dir);
+        print(`"./${relativePath}" directory has been cleaned up.`);
+      } catch (err) {
+        print('error', err.stack);
+      }
+    } catch (err) {
+      // ...
+    }
+  }));
 }

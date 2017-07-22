@@ -7,9 +7,10 @@ import {
   ASSETS_PATH,
   SERVER_PATH,
   BUILD_SERVER_DIR,
+  BUILD_PUBLIC_DIR,
   PUBLIC_DIR,
 } from '../config';
-import {Compilers, runServer, print, clear} from './utils';
+import {Compilers, runServer, print, clean} from './utils';
 import webpackConfig from './webpack';
 
 const hotPlugins = [
@@ -98,7 +99,7 @@ class AppFactory {
 }
 
 async function watch() {
-  await clear(BUILD_SERVER_DIR);
+  await clean([BUILD_SERVER_DIR, BUILD_PUBLIC_DIR]);
   const compilers = new Compilers(webpackConfig, extend);
   const factory = new AppFactory();
   factory.synchronize(compilers);

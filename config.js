@@ -5,12 +5,12 @@ export const DEV = NODE_ENV === 'development';
 export const PROD = NODE_ENV === 'production';
 
 export const ROOT_DIR = __dirname;
-export const BUILD_DIR = path.join(ROOT_DIR, 'build');
-export const PUBLIC_ROOT_DIR = path.join(ROOT_DIR, 'public');
-export const PUBLIC_DIR = path.join(BUILD_DIR, 'public');
+export const BUILD_SERVER_DIR = path.join(ROOT_DIR, 'build');
+export const BUILD_PUBLIC_DIR = path.join(BUILD_SERVER_DIR, 'public');
+export const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 
-export const SERVER_PATH = path.join(BUILD_DIR, 'server.js');
-export const ASSETS_PATH = path.join(BUILD_DIR, 'assets.json');
+export const SERVER_PATH = path.join(BUILD_SERVER_DIR, 'server.js');
+export const ASSETS_PATH = path.join(BUILD_SERVER_DIR, 'assets.json');
 export const STYLUS_CONFIG_PATH = path.join(ROOT_DIR, 'common', 'config.styl');
 
 export const PUBLIC_URL = '/public/';

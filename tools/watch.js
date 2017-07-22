@@ -6,8 +6,8 @@ import {devMiddleware, hotMiddleware} from 'koa-webpack-middleware';
 import {
   ASSETS_PATH,
   SERVER_PATH,
-  BUILD_DIR,
-  PUBLIC_ROOT_DIR,
+  BUILD_SERVER_DIR,
+  PUBLIC_DIR,
 } from '../config';
 import {Compilers, runServer, print, clear} from './utils';
 import webpackConfig from './webpack';
@@ -98,13 +98,13 @@ class AppFactory {
 }
 
 async function watch() {
-  await clear(BUILD_DIR);
+  await clear(BUILD_SERVER_DIR);
   const compilers = new Compilers(webpackConfig, extend);
   const factory = new AppFactory();
   factory.synchronize(compilers);
   compilers.get('server').watch({}, () => {});
   runServer(factory.get, [
-    mount('/', serve(PUBLIC_ROOT_DIR)),
+    mount('/', serve(PUBLIC_DIR)),
     devMiddleware(compilers.get('client'), {
       noInfo: true,
       stats: false,

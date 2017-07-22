@@ -6,7 +6,7 @@ import autoprefixer from 'autoprefixer';
 import {
   ROOT_DIR,
   PUBLIC_URL,
-  PUBLIC_DIR,
+  BUILD_PUBLIC_DIR,
   ASSETS_PATH,
   STYLUS_CONFIG_PATH,
   CSS_NAME_PATTERN,
@@ -61,7 +61,7 @@ export default {
     ],
   },
   output: {
-    path: PUBLIC_DIR,
+    path: BUILD_PUBLIC_DIR,
     publicPath: PUBLIC_URL,
     filename: '[name].[hash].js',
   },

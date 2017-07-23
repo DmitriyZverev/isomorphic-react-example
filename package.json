@@ -29,6 +29,10 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "source-map-support": "^0.4.15",
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
@@ -46,7 +50,9 @@
     "koa-mount": "^3.0.0",
     "koa-static": "^4.0.1",
     "koa-webpack-middleware": "^1.0.5",
-    "react-hot-loader": "next"
+    "react-hot-loader": "next",
+    "redbox-react": "^1.4.3",
+    "redux-devtools-extension": "^2.13.2"
   },
   "babel": {
     "presets": [
@@ -64,7 +70,10 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": "revva/react"
+    "extends": "revva/react",
+    "globals": {
+      "__PRELOADED_STATE__": true
+    }
   },
   "eslintIgnore": [
     "build"

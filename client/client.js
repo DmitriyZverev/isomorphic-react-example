@@ -1,14 +1,44 @@
 import React from 'react';
-import {render} from 'react-dom';
+import thunk from 'redux-thunk';
+import ReactDOM from 'react-dom';
+import {createStore, applyMiddleware} from 'redux';
 
-import App from 'components/App';
+import reducer from 'reducer';
+import rootRoutes from 'routes';
 
-render(<App/>, document.getElementById('root'));
+import Root from './components/Root';
 
+const args = [
+  reducer,
+  __PRELOADED_STATE__,
+  applyMiddleware(thunk),
+];
 
-if (module.hot) {
-  module.hot.accept('components/App', () => {
-    const NewApp = require('components/App').default;
-    render(<NewApp/>, document.getElementById('root'));
+if (process.env.NODE_ENV === 'development') {
+  const {composeWithDevTools} = require('redux-devtools-extension');
+  args[2] = composeWithDevTools(args[2]);
+}
+
+const root = document.getElementById('root');
+const store = createStore(...args);
+
+function render(Component, routes) {
+  ReactDOM.render(
+    <Component {...{store, routes}}/>,
+    root
+  );
+}
+
+render(Root, rootRoutes);
+
+if (process.env.NODE_ENV === 'development' && module.hot) {
+  const RedBox = require('redbox-react').default;
+  module.hot.accept(['./components/Root', 'reducer', 'routes'], () => {
+    store.replaceReducer(require('reducer').default);
+    try {
+      render(require('./components/Root').default, require('routes').default);
+    } catch (err) {
+      ReactDOM.render(<RedBox error={err}/>, root);
+    }
   });
 }

@@ -1,5 +1,5 @@
 /**
- * The run server module.
+ * The start server module.
  */
 import fs from 'fs-extra';
 import mount from 'koa-mount';

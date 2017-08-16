@@ -3,7 +3,7 @@
  * The start command entry point.
  */
 require('babel-register')();
-require('../tools/run').default({
+require('../tools/start').default({
   runBuild: process.argv.includes('--build'),
   serveStatic: process.argv.includes('--static'),
 });

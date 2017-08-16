@@ -11,7 +11,7 @@
     "node": ">=7.6"
   },
   "scripts": {
-    "start": "bin/run",
+    "start": "bin/start",
     "build": "bin/build",
     "watch": "bin/watch",
     "eslint": "eslint .",

@@ -1,7 +1,15 @@
 {
-  "name": "my-starter-kit",
+  "name": "isomorphic-react-skeleton",
   "version": "0.1.0",
+  "private": true,
+  "author": {
+    "name": "Dmitriy Zverev",
+    "email": "zver.lockon@mail.ru"
+  },
   "license": "MIT",
+  "engines": {
+    "node": ">=7.6"
+  },
   "scripts": {
     "start": "bin/run",
     "build": "bin/build",

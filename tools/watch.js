@@ -10,6 +10,7 @@ import {
   BUILD_PUBLIC_DIR,
   PUBLIC_DIR,
 } from '../config';
+import {REGEX_JS} from './constants';
 import {Compilers, runServer, print, clean} from './utils';
 import webpackConfig from './webpack';
 
@@ -34,7 +35,7 @@ const extend = {
     ].concat(config.entry.client);
     config.plugins.push(...hotPlugins);
     const jsRule = config.module.rules.find((rule) => {
-      return rule.test.toString() === '/\\.js$/';
+      return rule.test === REGEX_JS;
     });
     const babelLoader = jsRule.use.find((entry) => {
       return entry.loader === 'babel-loader';

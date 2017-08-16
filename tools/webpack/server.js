@@ -14,6 +14,7 @@ import {
   NODE_ENV,
   DEV,
 } from '../../config';
+import {REGEX_FILE, REGEX_JS} from '../constants';
 
 export default {
   name: 'server',
@@ -44,7 +45,7 @@ export default {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: REGEX_JS,
         exclude: /node_modules/,
         use: [
           {
@@ -75,7 +76,7 @@ export default {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|svg)$/,
+        test: REGEX_FILE,
         use: [
           {
             loader: 'file-loader',

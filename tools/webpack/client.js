@@ -15,6 +15,7 @@ import {
   DEV,
   PROD,
 } from '../../config';
+import {REGEX_FILE, REGEX_JS, REGEX_STYLES} from '../constants';
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -75,7 +76,7 @@ export default {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: REGEX_JS,
         exclude: /node_modules/,
         use: [
           {
@@ -92,7 +93,7 @@ export default {
         ],
       },
       {
-        test: /\.(css|styl)$/,
+        test: REGEX_STYLES,
         use: [
           {
             loader: 'style-loader',
@@ -127,7 +128,7 @@ export default {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|svg)$/,
+        test: REGEX_FILE,
         use: [
           {
             loader: 'file-loader',

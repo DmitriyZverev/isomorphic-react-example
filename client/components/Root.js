@@ -6,6 +6,9 @@ import {AppContainer} from 'react-hot-loader';
 
 import App from 'components/App';
 
+/**
+ * The root client component.
+ */
 function Root({store, routes}) {
   return (
     <AppContainer>

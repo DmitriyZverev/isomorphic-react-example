@@ -1,4 +1,6 @@
 #!/usr/bin/env node
-
+/**
+ * The build command entry point.
+ */
 require('babel-register')();
 require('../tools/build').default();

@@ -1,3 +1,6 @@
+/**
+ * The module contains utilites and helers.
+ */
 import path from 'path';
 import fs from 'fs-extra';
 import Application from 'koa';
@@ -6,6 +9,9 @@ import webpack from 'webpack';
 
 import {PORT} from '../config';
 
+/**
+ * Custom wrapper around console.log().
+ */
 export function print(type, messages) {
   const map = {
     trivial: '37',
@@ -26,6 +32,12 @@ export function print(type, messages) {
   }));
 }
 
+/**
+ * Webpack compillers manager.
+ *
+ * It extend, if needed, webpack configs, create compilers, set custom output,
+ * and gives easy access to compiler by name.
+ */
 export class Compilers {
   constructor(configs, extend = {}) {
     this.get = this.get.bind(this);
@@ -67,6 +79,11 @@ export class Compilers {
   }
 }
 
+/**
+ * The run server function.
+ *
+ * Run koa-server and inject the application instance as middleware.
+ */
 export function runServer(app, middlewares = []) {
   let applicationMiddleware;
   if (app instanceof Application) {
@@ -97,6 +114,9 @@ export function runServer(app, middlewares = []) {
   return server;
 }
 
+/**
+ * Clean directories.
+ */
 export async function clean(dirs) {
   if (typeof dirs === 'string') {
     dirs = [dirs];

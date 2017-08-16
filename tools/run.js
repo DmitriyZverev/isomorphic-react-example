@@ -1,3 +1,6 @@
+/**
+ * The run server module.
+ */
 import fs from 'fs-extra';
 import mount from 'koa-mount';
 import serve from 'koa-static';
@@ -12,6 +15,13 @@ import {
 import {runServer, print} from './utils';
 import build from './build';
 
+/**
+ * The module entry point.
+ *
+ * - Run server.
+ * - Build server bundle before run (optional).
+ * - Mode of serve static files (optional).
+ */
 export default async function ({runBuild, serveStatic}) {
   const middlewares = [];
   if (serveStatic) {

@@ -7,6 +7,9 @@ import App from 'components/App';
 
 import Html from './Html';
 
+/**
+ * The root server component.
+ */
 function Root({assets, store, routes, location, context}) {
   return (
     <Html assets={assets} state={store.getState()}>

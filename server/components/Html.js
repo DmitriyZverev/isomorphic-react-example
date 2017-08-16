@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {renderToString} from 'react-dom/server';
 
+/**
+ * The html component.
+ */
 function Html({assets, state, children}) {
   const childrenString = renderToString(children);
   const stateString = `window.__PRELOADED_STATE__=${JSON.stringify(state)};`;

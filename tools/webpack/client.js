@@ -1,3 +1,6 @@
+/**
+ * Client webpack configuration.
+ */
 import path from 'path';
 import webpack from 'webpack';
 import AssetsPlugin from 'assets-webpack-plugin';
@@ -18,14 +21,31 @@ import {
 import {REGEX_FILE, REGEX_JS, REGEX_STYLES} from '../constants';
 
 const plugins = [
+  /**
+   * Plugin defines global variables.
+   *
+   * @see https://webpack.js.org/plugins/define-plugin/
+   */
   new webpack.DefinePlugin({
     'process.env': {NODE_ENV: JSON.stringify(NODE_ENV)},
   }),
+
+  /**
+   * Plugin that emits a json file with assets paths.
+   *
+   * @see https://github.com/kossnocorp/assets-webpack-plugin
+   */
   new AssetsPlugin({
     path: path.parse(ASSETS_PATH).dir,
     filename: path.parse(ASSETS_PATH).base,
     prettyPrint: true,
   }),
+
+  /**
+   * Plugin collects all modules from 'node_modules' to single file.
+   *
+   * @see https://webpack.js.org/plugins/commons-chunk-plugin/
+   */
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     minChunks: module => /node_modules/.test(module.resource),
@@ -34,6 +54,11 @@ const plugins = [
 
 if (PROD) {
   plugins.push(
+    /**
+     * Plugin optimize and minimize output js-files.
+     *
+     * @see https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
+     */
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true, // eslint-disable-line camelcase
@@ -51,6 +76,9 @@ if (PROD) {
   );
 }
 
+/**
+ * The configuration object.
+ */
 export default {
   name: 'client',
   target: 'web',
@@ -75,10 +103,20 @@ export default {
   stats: 'errors-only',
   module: {
     rules: [
+      /**
+       * Js files rule.
+       */
       {
         test: REGEX_JS,
         exclude: /node_modules/,
         use: [
+          /**
+           * Babel loader.
+           *
+           * This loader allows transpiling JavaScript files using Babel.
+           *
+           * @see https://webpack.js.org/loaders/babel-loader/
+           */
           {
             loader: 'babel-loader',
             options: {
@@ -92,12 +130,28 @@ export default {
           },
         ],
       },
+      /**
+       * Style files rule.
+       */
       {
         test: REGEX_STYLES,
         use: [
+          /**
+           * Style loader.
+           *
+           * @see https://webpack.js.org/loaders/style-loader/
+           */
           {
             loader: 'style-loader',
           },
+          /**
+           * CSS loader.
+           *
+           * The loader interprets @import and url() like import/require()
+           * and will resolve them.
+           *
+           * @see https://webpack.js.org/loaders/css-loader/
+           */
           {
             loader: 'css-loader',
             options: {
@@ -108,6 +162,13 @@ export default {
               sourceMap: DEV,
             },
           },
+          /**
+           * PostCSS loader.
+           *
+           * The loader for transforming styles with JS plugins.
+           *
+           * @see https://webpack.js.org/loaders/postcss-loader/
+           */
           {
             loader: 'postcss-loader',
             options: {
@@ -117,6 +178,13 @@ export default {
               ],
             },
           },
+          /**
+           * Stylus loader.
+           *
+           * This loader compiles stylus to css.
+           *
+           * @see https://github.com/shama/stylus-loader
+           */
           {
             loader: 'stylus-loader',
             options: {
@@ -127,9 +195,20 @@ export default {
           },
         ],
       },
+      /**
+       * Other files rule (e.g. images, fonts).
+       */
       {
         test: REGEX_FILE,
         use: [
+          /**
+           * File loader.
+           *
+           * Instructs webpack to emit the required object as file and to
+           * return its public URL.
+           *
+           * @see https://webpack.js.org/loaders/file-loader/
+           */
           {
             loader: 'file-loader',
             options: {

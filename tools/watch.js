@@ -1,3 +1,9 @@
+/**
+ * The watching command module.
+ *
+ * This command run server, watching the source files for changes,
+ * and update bundles without reload server and browser page.
+ */
 import webpack from 'webpack';
 import mount from 'koa-mount';
 import serve from 'koa-static';
@@ -20,6 +26,12 @@ const hotPlugins = [
   new webpack.NamedModulesPlugin(),
 ];
 
+/**
+ * The object extending webpack config.
+ *
+ * The object contains functions which add watch and hot reload modes to default
+ * webpack configuration.
+ */
 const extend = {
   server(config) {
     config.output.hotUpdateMainFilename = 'updates/[hash].hot-update.json';
@@ -45,6 +57,13 @@ const extend = {
   },
 };
 
+/**
+ * The application factory class.
+ *
+ * Each time when any webpack compilation (server or client) starts, the
+ * factory create a promise, which will return the application instance, after
+ * all compilations will be completed.
+ */
 class AppFactory {
   constructor() {
     this.ready = this.ready.bind(this);
@@ -53,6 +72,9 @@ class AppFactory {
     this._makePromise();
   }
 
+  /**
+   * Synchronize the application instance making with compilation events.
+   */
   synchronize(compilers) {
     compilers.names().reduce((ready, name) => {
       ready[name] = false;
@@ -71,21 +93,35 @@ class AppFactory {
     });
   }
 
+  /**
+   * Make a promise of ready the application instance.
+   *
+   * Makes only if previous promise was resolved/rejected.
+   */
   _makePromise() {
     if (!this._promise || this._promise.done) {
       this._promise = new Promise((resolve, reject) => {
         this._reject = reject;
         this._resolve = resolve;
       });
+      // Fix throwing unhandled promise error, while promise is pending.
       this._promise.catch(() => {});
       this._promise.done = false;
     }
   }
 
+  /**
+   * Get a promise of ready the application instance.
+   */
   get() {
     return this._promise;
   }
 
+  /**
+   * The trigger resolving a promise.
+   *
+   * Promise resolves only if all compilations were completed.
+   */
   ready(name, value) {
     this._ready[name] = value;
     if (!value) {
@@ -99,6 +135,12 @@ class AppFactory {
   }
 }
 
+/**
+ * The module entrypoint.
+ *
+ * Run server in which injected new application instance, each time when
+ * recompile any bundle. It lets keep server running and update the application.
+ */
 async function watch() {
   await clean([BUILD_SERVER_DIR, BUILD_PUBLIC_DIR]);
   const compilers = new Compilers(webpackConfig, extend);

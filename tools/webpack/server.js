@@ -1,3 +1,6 @@
+/**
+ * Server webpack configuration.
+ */
 import path from 'path';
 import stylus from 'stylus';
 import webpack from 'webpack';
@@ -16,6 +19,9 @@ import {
 } from '../../config';
 import {REGEX_FILE, REGEX_JS} from '../constants';
 
+/**
+ * The configuration object.
+ */
 export default {
   name: 'server',
   target: 'node',
@@ -44,16 +50,33 @@ export default {
   stats: 'errors-only',
   module: {
     rules: [
+      /**
+       * Js files rule.
+       */
       {
         test: REGEX_JS,
         exclude: /node_modules/,
         use: [
+          /**
+           * Babel loader.
+           *
+           * This loader allows transpiling JavaScript files using Babel.
+           *
+           * @see https://webpack.js.org/loaders/babel-loader/
+           */
           {
             loader: 'babel-loader',
             options: {
               ...pkg.babel,
               plugins: [
                 ...pkg.babel.plugins || [],
+                /**
+                 * Plugin finds all requires for css module files and replace
+                 * them with a hash where keys are class names and values are
+                 * generated css class names.
+                 *
+                 * @see https://github.com/michalkvasnicak/babel-plugin-css-modules-transform
+                 */
                 [
                   'css-modules-transform',
                   {
@@ -75,13 +98,24 @@ export default {
           },
         ],
       },
+      /**
+       * Other files rule (e.g. images, fonts).
+       */
       {
         test: REGEX_FILE,
         use: [
+          /**
+           * File loader.
+           *
+           * Instructs webpack to emit the required object as file and to
+           * return its public URL.
+           *
+           * @see https://webpack.js.org/loaders/file-loader/
+           */
           {
             loader: 'file-loader',
             options: {
-              emitFile: false,
+              emitFile: false, // client should emit files, not server.
               name: FILE_NAME_PATTERN,
               publicPath: PUBLIC_URL,
             },

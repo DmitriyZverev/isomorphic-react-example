@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-
+/**
+ * The start command entry point.
+ */
 require('babel-register')();
 require('../tools/run').default({
   runBuild: process.argv.includes('--build'),

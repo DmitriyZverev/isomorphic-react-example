@@ -1,4 +1,6 @@
 #!/usr/bin/env node
-
+/**
+ * The watching command entry point.
+ */
 require('babel-register')();
 require('../tools/watch').default();

@@ -64,7 +64,7 @@ export default {
   output: {
     path: BUILD_PUBLIC_DIR,
     publicPath: PUBLIC_URL,
-    filename: '[name].[hash].js',
+    filename: DEV ? '[name].[hash].js' : '[name].[chunkhash].js',
   },
   resolve: {
     modules: [

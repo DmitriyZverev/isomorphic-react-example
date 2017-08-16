@@ -1,6 +1,6 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-import {DEV, BUILD_SERVER_DIR, BUILD_PUBLIC_DIR} from '../config';
+import {BUILD_SERVER_DIR, BUILD_PUBLIC_DIR} from '../config';
 import {Compilers, print, clean} from './utils';
 import webpackConfig from './webpack';
 import {REGEX_STYLES} from './constants';
@@ -11,9 +11,7 @@ const expand = {
       return rule.test === REGEX_STYLES;
     });
     stylesRule.use = ExtractTextPlugin.extract({use: stylesRule.use.slice(1)});
-    config.plugins.push(new ExtractTextPlugin(
-      DEV ? '[name].[hash].css' : '[name].[chunkhash].css'
-    ));
+    config.plugins.push(new ExtractTextPlugin('[name].[contenthash].css'));
     return config;
   },
 };

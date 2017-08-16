@@ -19,7 +19,7 @@ import {REGEX_FILE, REGEX_JS} from '../constants';
 export default {
   name: 'server',
   target: 'node',
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   entry: {
     server: path.join(ROOT_DIR, 'server', 'server.js'),
   },
@@ -93,11 +93,6 @@ export default {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {NODE_ENV: JSON.stringify(NODE_ENV)},
-    }),
-    new webpack.BannerPlugin({
-      banner: 'require("source-map-support").install();',
-      raw: true,
-      entryOnly: false,
     }),
   ],
 };

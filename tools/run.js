@@ -12,13 +12,6 @@ import {
 import {runServer, print} from './utils';
 import build from './build';
 
-function run(middlewares) {
-  runServer(
-    () => Promise.resolve(require(SERVER_PATH).default(require(ASSETS_PATH))),
-    middlewares
-  );
-}
-
 export default async function ({runBuild, serveStatic}) {
   const middlewares = [];
   if (serveStatic) {
@@ -35,7 +28,8 @@ export default async function ({runBuild, serveStatic}) {
       fs.access(SERVER_PATH),
       fs.access(ASSETS_PATH),
     ]);
-    run(middlewares);
+    const app = require(SERVER_PATH).default(require(ASSETS_PATH));
+    runServer(app, middlewares);
   } catch (err) {
     print('error', [
       '\nCan\'t run server! Server build is not ready:\n',

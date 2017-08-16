@@ -67,7 +67,17 @@ export class Compilers {
   }
 }
 
-export function runServer(getApplication, middlewares = []) {
+export function runServer(app, middlewares = []) {
+  let applicationMiddleware;
+  if (app instanceof Application) {
+    applicationMiddleware = mount(app);
+  } else if (app instanceof Function) {
+    applicationMiddleware = async (ctx, next) => mount(await app())(ctx, next);
+  } else {
+    throw new TypeError(
+      'Invalid type given. Expected function or Application instance.'
+    );
+  }
   const server = new Application();
   server.use(async (ctx, next) => {
     try {
@@ -80,7 +90,7 @@ export function runServer(getApplication, middlewares = []) {
     }
   });
   middlewares.forEach(middleware => server.use(middleware));
-  server.use(async (ctx, next) => mount(await getApplication())(ctx, next));
+  server.use(applicationMiddleware);
   server.listen(PORT, () => {
     print(`Server is listening port ${PORT}.`);
   });

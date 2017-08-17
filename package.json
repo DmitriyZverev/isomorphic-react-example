@@ -11,6 +11,7 @@
     "node": ">=7.6"
   },
   "scripts": {
+    "api": "bin/api",
     "start": "bin/start",
     "build": "bin/build",
     "watch": "bin/watch",
@@ -59,7 +60,8 @@
     "koa-webpack-middleware": "^1.0.5",
     "react-hot-loader": "next",
     "redbox-react": "^1.4.3",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "supertest": "^3.0.0"
   },
   "babel": {
     "presets": [

@@ -1,0 +1,44 @@
+{
+  "cars": [
+    {
+      "id": "1",
+      "name": "Chevrolet Camaro Zl-1"
+    },
+    {
+      "id": "2",
+      "name": "Shelby Mustang GT500"
+    },
+    {
+      "id": "3",
+      "name": "Dodge Challenger T/A"
+    }
+  ],
+  "specs": [
+    {
+      "carId": "1",
+      "engine": "V8; 427 cid (7.0 L); 430 HP",
+      "transmission": "4-speed manual",
+      "maxSpeed": "200 km/h",
+      "acceleration": "5.3 s",
+      "weight": "1320 kg"
+    },
+    {
+      "carId": "2",
+      "production": "1967–1968",
+      "engine": "V8; 427 cid (7.0 L); 390 HP",
+      "transmission": "4-speed manual",
+      "maxSpeed": "211 km/h",
+      "acceleration": "7.0 s",
+      "weight": "1410 kg"
+    },
+    {
+      "carId": "3",
+      "production": "1970—1974",
+      "engine": "V8 Hemi; 426 cid (7.0 L); 425 HP",
+      "transmission": "3-speed automatic",
+      "maxSpeed": "200 km/h",
+      "acceleration": "5.8 s",
+      "weight": "1460 kg"
+    }
+  ]
+}

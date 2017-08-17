@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+/**
+ * Run API command.
+ */
+require('babel-register')();
+require('../api/app').default(require('../api/data.json')).listen(7000);

@@ -78,6 +78,9 @@
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "revva/react",
+    "env": {
+      "jest": true
+    },
     "globals": {
       "__PRELOADED_STATE__": true
     }

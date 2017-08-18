@@ -1907,9 +1907,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-revva@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-revva/-/eslint-config-revva-0.5.0.tgz#9a33e10ede780834b92e0d95ad762be1772b8b19"
+eslint-config-revva@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-revva/-/eslint-config-revva-1.0.0.tgz#73b5bb09b24413a8016ecc16d3fd3f534ef65579"
 
 eslint-plugin-react@^7.1.0:
   version "7.1.0"

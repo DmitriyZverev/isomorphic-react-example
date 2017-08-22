@@ -22,7 +22,7 @@ function Layout({children}) {
       </div>
       <footer className={styles.footer}>
         <a
-          href="https://github.com/DmitriyZverev/isomorphic-react-skeleton"
+          href="https://github.com/DmitriyZverev/isomorphic-react-example"
           className={styles.githubLogo}
           dangerouslySetInnerHTML={{__html: githubLogo}}
         />

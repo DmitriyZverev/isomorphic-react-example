@@ -1,0 +1,35 @@
+.breadcrumbs
+    margin-bottom 16px
+
+.breadcrumbsLink
+    color $color_font
+    transition .3s
+    &:hover
+        color $color_red
+    &:active
+        color darken($color_red, 30%)
+
+.breadcrumbsCurrent
+    color $color_grey
+
+.name
+    font-weight bold
+    font-size 24px
+
+.image
+    display block
+    width 100%
+    border-radius 16px
+    margin-bottom 16px
+
+.table
+    width 100%
+    border-spacing 0
+    margin 8px 0
+.cell
+    padding 8px
+    border-bottom 1px solid $color_grey
+.row
+    &:last-of-type
+        :local(.cell)
+            border-bottom none

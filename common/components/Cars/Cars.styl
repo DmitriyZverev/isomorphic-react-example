@@ -1,0 +1,27 @@
+.list
+    margin 0
+    padding 0
+    list-style none
+
+.item
+    position relative
+    padding-left 16px
+    margin-bottom 8px
+    &:before
+        top 8px
+        left 0
+        position absolute
+        content: ''
+        display block
+        border-radius 4px
+        width 8px
+        height 8px
+        background $color_red
+
+.link
+    color $color_font
+    transition .3s
+    &:hover
+        color $color_red
+    &:active
+        color darken($color_red, 30%)

@@ -5,8 +5,6 @@ import {matchPath} from 'react-router-dom';
 import routes from 'routes';
 import reducer from 'reducer';
 
-import data from '../data/data.json';
-
 /**
  * The load data middleware.
  *
@@ -15,7 +13,7 @@ import data from '../data/data.json';
  * next middleware.
  */
 async function loadData({request, state}, next) {
-  const initialState = data;
+  const initialState = {};
   const store = createStore(
     reducer,
     initialState,
